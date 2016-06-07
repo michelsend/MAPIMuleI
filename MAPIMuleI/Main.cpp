@@ -3,6 +3,7 @@
 #endif // !UNICODE
 
 #include <Windows.h>
+#include <MapiX.h>
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -74,4 +75,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	// If none of the above messages are passed to the window proc,
 	// DefWindowProc will handle it
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
+}
+
+bool LogonToProvider()
+{
+	return false;
 }
