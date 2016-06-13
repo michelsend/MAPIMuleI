@@ -3,9 +3,14 @@
 #endif // !UNICODE
 
 #include <Windows.h>
-#include <MapiX.h>
+#include "resource.h"
+//#include <MAPI.h>
+//#include <MapiX.h>
+
+
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+bool LogonToProvider(void);
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow)
 {
@@ -17,6 +22,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 	wc.lpfnWndProc = WindowProc;
 	wc.hInstance = hInstance;
 	wc.lpszClassName = CLASS_NAME;
+	wc.lpszMenuName = MAKEINTRESOURCE(IDR_MENU1);
 
 	RegisterClass(&wc);
 
@@ -40,7 +46,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 		return 0;
 	}
 
+	
 	ShowWindow(hwnd, nCmdShow);
+
+	
 
 	//Run the message loop
 
@@ -69,6 +78,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		EndPaint(hwnd, &ps);
 	}
+
+	case WM_COMMAND:
+	{
+		return 0;
+	}
+
 	return 0;
 
 	}
@@ -81,5 +96,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 //MAPI initialization and logon funcitonality goes here....
 bool LogonToProvider()
 {
+	HRESULT hr;
+	//hr = MAPIInitialize((LPVOID)nullptr);
 	return false;
 }
