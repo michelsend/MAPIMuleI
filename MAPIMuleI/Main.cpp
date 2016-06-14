@@ -4,13 +4,17 @@
 
 #include <Windows.h>
 #include "resource.h"
-//#include <MAPI.h>
-//#include <MapiX.h>
+#include <MAPI.h>
+#include <MapiX.h>
+#include <MAPIUtil.h>
+
 
 
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-bool LogonToProvider(void);
+bool InitSession(HWND hwnd);
+bool LogoffProvider(HWND hwnd);
+MAPIINIT_0 mpInit;
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow)
 {
@@ -46,28 +50,32 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 		return 0;
 	}
 
-	
 	ShowWindow(hwnd, nCmdShow);
 
-	
-
 	//Run the message loop
-
 	MSG msg = { };
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+
+	return 0;
 }
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg)
 	{
+	case WM_CREATE:
+		InitSession(hwnd);
+		return 0;
+
 	case WM_DESTROY:
+	{
 		PostQuitMessage(0);
 		return 0;
+	}
 
 	case WM_PAINT:
 	{
@@ -77,10 +85,27 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
 
 		EndPaint(hwnd, &ps);
+		return 0;
 	}
 
 	case WM_COMMAND:
 	{
+		switch (LOWORD(wParam))
+		{
+		case ID_FILE_EXIT:
+		{
+			LogoffProvider(hwnd);
+			PostQuitMessage(0);
+			return 0;
+		}
+		case ID_HELP_ABOUT:
+		{
+			MessageBox(hwnd, L"Mapi Mule Ver 1", L"Mapi Mule", MB_OK);
+		}
+		default:
+			return 0;
+		}
+
 		return 0;
 	}
 
@@ -94,9 +119,25 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 
 //MAPI initialization and logon funcitonality goes here....
-bool LogonToProvider()
+bool InitSession(HWND hwnd)
 {
 	HRESULT hr;
-	//hr = MAPIInitialize((LPVOID)nullptr);
-	return false;
+	mpInit = { 0, MAPI_MULTITHREAD_NOTIFICATIONS };
+
+	if ((hr = MAPIInitialize(&mpInit)) == S_OK)
+	{
+		return true;
+	}
+	else
+	{
+		MessageBox(hwnd, L"MAPI Initialization Failed", L"MAPI Init", MB_OK);
+		return false;
+	}
+	return true;
+}
+
+bool LogoffProvider(HWND hwnd)
+{
+	MAPIUninitialize();
+	return true;
 }
