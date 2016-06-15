@@ -4,15 +4,15 @@
 
 #include <Windows.h>
 #include "resource.h"
+#include "MapiMuleI.h"
 #include <MAPI.h>
 #include <MapiX.h>
 #include <MAPIUtil.h>
-
-
+#include <atlbase.h>
 
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-bool InitSession(HWND hwnd);
+HRESULT InitSession(HWND hwnd);
 bool LogoffProvider(HWND hwnd);
 MAPIINIT_0 mpInit;
 
@@ -73,6 +73,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	case WM_DESTROY:
 	{
+		LogoffProvider(hwnd);
 		PostQuitMessage(0);
 		return 0;
 	}
@@ -119,25 +120,24 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 
 //MAPI initialization and logon funcitonality goes here....
-bool InitSession(HWND hwnd)
+HRESULT InitSession(HWND hwnd)
 {
 	HRESULT hr;
 	mpInit = { 0, MAPI_MULTITHREAD_NOTIFICATIONS };
 
-	if ((hr = MAPIInitialize(&mpInit)) == S_OK)
-	{
-		return true;
-	}
-	else
-	{
-		MessageBox(hwnd, L"MAPI Initialization Failed", L"MAPI Init", MB_OK);
-		return false;
-	}
-	return true;
+	CORg(MAPIInitialize(&mpInit));
+	
+	{  // context for smart pointer -- compiler error if this isn't present	
+		CComPtr<IMAPISession> spSession;
+		CORg(MAPILogonEx(NULL, NULL, NULL, MAPI_UNICODE | MAPI_LOGON_UI, &spSession));
+	}  // end of smart pointer context
+Error:
+	return hr;
 }
 
 bool LogoffProvider(HWND hwnd)
 {
 	MAPIUninitialize();
+	
 	return true;
 }
