@@ -158,7 +158,7 @@
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MapiStub\vs2010\MapiStubLibrary\MapiStubLibrary.vcxproj">
+    <ProjectReference Include="..\..\MapiStubLibrary\vs2010\MapiStubLibrary\MapiStubLibrary.vcxproj">
       <Project>{771a5fad-88f8-44f9-b454-7baee548e10d}</Project>
     </ProjectReference>
   </ItemGroup>

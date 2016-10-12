@@ -101,7 +101,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		case ID_HELP_ABOUT:
 		{
-			MessageBox(hwnd, L"Mapi Mule Ver 1", L"Mapi Mule", MB_OK);
+			MessageBox(hwnd, L"Mapi Mule Ver 1.0", L"Mapi Mule", MB_OK);
 		}
 		default:
 			return 0;
@@ -124,13 +124,12 @@ HRESULT InitSession(HWND hwnd)
 {
 	HRESULT hr;
 	mpInit = { 0, MAPI_MULTITHREAD_NOTIFICATIONS };
+	CComPtr<IMAPISession> spSession;
 
 	CORg(MAPIInitialize(&mpInit));
 	
-	{  // context for smart pointer -- compiler error if this isn't present	
-		CComPtr<IMAPISession> spSession;
-		CORg(MAPILogonEx(NULL, NULL, NULL, MAPI_UNICODE | MAPI_LOGON_UI, &spSession));
-	}  // end of smart pointer context
+	CORg(MAPILogonEx(NULL, NULL, NULL, MAPI_UNICODE | MAPI_LOGON_UI, &spSession));
+
 Error:
 	return hr;
 }

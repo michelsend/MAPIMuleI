@@ -4,11 +4,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MAPIMuleI", "MAPIMuleI\MAPIMuleI.vcxproj", "{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{771A5FAD-88F8-44F9-B454-7BAEE548E10D} = {771A5FAD-88F8-44F9-B454-7BAEE548E10D}
-	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MapiStubLibrary", "..\MapiStub\vs2010\MapiStubLibrary\MapiStubLibrary.vcxproj", "{771A5FAD-88F8-44F9-B454-7BAEE548E10D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MapiStubLibrary", "..\MapiStubLibrary\vs2010\MapiStubLibrary\MapiStubLibrary.vcxproj", "{771A5FAD-88F8-44F9-B454-7BAEE548E10D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,16 +15,16 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}.Debug|x64.ActiveCfg = Debug|Win32
-		{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}.Debug|x64.Build.0 = Debug|Win32
+		{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}.Debug|x64.ActiveCfg = Debug|x64
+		{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}.Debug|x64.Build.0 = Debug|x64
 		{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}.Debug|x86.ActiveCfg = Debug|Win32
 		{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}.Debug|x86.Build.0 = Debug|Win32
 		{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}.Release|x64.ActiveCfg = Release|x64
 		{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}.Release|x64.Build.0 = Release|x64
 		{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}.Release|x86.ActiveCfg = Release|Win32
 		{0E74A32F-7DF3-4EC0-A15C-9D65A7D8F77B}.Release|x86.Build.0 = Release|Win32
-		{771A5FAD-88F8-44F9-B454-7BAEE548E10D}.Debug|x64.ActiveCfg = Debug|Win32
-		{771A5FAD-88F8-44F9-B454-7BAEE548E10D}.Debug|x64.Build.0 = Debug|Win32
+		{771A5FAD-88F8-44F9-B454-7BAEE548E10D}.Debug|x64.ActiveCfg = Debug|x64
+		{771A5FAD-88F8-44F9-B454-7BAEE548E10D}.Debug|x64.Build.0 = Debug|x64
 		{771A5FAD-88F8-44F9-B454-7BAEE548E10D}.Debug|x86.ActiveCfg = Debug|Win32
 		{771A5FAD-88F8-44F9-B454-7BAEE548E10D}.Debug|x86.Build.0 = Debug|Win32
 		{771A5FAD-88F8-44F9-B454-7BAEE548E10D}.Release|x64.ActiveCfg = Release|x64
